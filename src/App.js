@@ -1,24 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './Navbar';
+import Home from './Home'
+
+// eslint-disable-next-line no-lone-blocks
+{/* curly braces allow react to use dynamic values */}
 
 function App() {
+
+  // const title = 'Welcome to the New Blog'
+  // const likes = 50
+  // // const person = { name: 'y0shi', age: 30 - Objects ARE NOT allowed in reacts dynamic values}
+  // const googleLink = "https://www.google.com"
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Navbar />
+      <div className="content">
+      <Home />
+       </div>
+     </div>
+
+
+
+
+
+
+      //  {/* *****    NOTES  ****** */}
+      // {/* <h1>{title}</h1>
+      //   <p>liked {likes} times</p>
+      // {/* {<p> {person} </p>} */}
+      // {/*    THE ONLY different data types allowed in react       */}
+      // {/* <p>{10}</p> */}
+      // {/* <p>{"Hello guys"}</p>  */}
+      // {/* <p>{[1,2,3,4]}</p> */}
+      // {/* <p>{Math.random() * 10}</p> */}
+      // {/* <a href={googleLink}>google link</a>  */} 
   );
 }
 
