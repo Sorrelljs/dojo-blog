@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react"
 import BlogList from './BlogList'
+import useFetch from "./useFetch";
 
 const Home = () => {
-// create a state for blogs and a function state to update
-    const [blogs, setBlogs] = useState(null)
-
-    const [isLoading, setIsLoading] = useState(true)
-
-    const [error, setError] = useState(null)
-
-    // const handleDelete = (id) => {
+const {data: blogs, isLoading, error} = useFetch('http://localhost:8000/blogs')
+     // const handleDelete = (id) => {
     //     // create function to filter and delete the right blog
     //     const newBlogs = blogs.filter(blog => blog.id !== id);
     //     //set the new state as the blog has been passed
@@ -17,38 +12,14 @@ const Home = () => {
     //     // we then pass this function through as a prop 
     // }
 
-    useEffect(() => {
-        setTimeout(() =>{
-                         // fetch data from json fake db
-        fetch('http://localhost:8000/blogs')
-                // .then because it's a promise 
-            .then(res =>{
-                // check if res status is !NOT OK 
-                if(!res.ok) {
-                    throw Error("Could not fetch data from that resource")
-                }
-            // change format of the data to json
-                return res.json()
-            })
-            // new promise with the data
-                .then((data) => {
-            // change the state of the blogs with the input of the data
-                    setIsLoading(false)
-                    setBlogs(data)
-                    setError(null)
-                })
-            .catch((err) =>{
-                setIsLoading(false)
-                setError(err.message)
-            })
-        }, 1000)
-    }, [])
     
     return ( 
         <div className="home"> 
-            {/* {/ * blogs are null and need time to pull the data in. && buys time */} 
+            {/* if error is true, show error*/} 
             {error && <div> { error } </div>}
+            {/* If isLoading is true, show loading...  */}
             {isLoading && <div>Loading...</div>}
+            {/* If there are blogs, show blogList and pass props */}
             {blogs && <BlogList blogs={blogs} title="All Blogs!" /> }
              {/* <BlogList blogs={blogs.filter((blog) =>  blog.author === 'mario')} */}
                     
