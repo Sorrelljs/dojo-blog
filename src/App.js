@@ -1,6 +1,8 @@
 import './App.css';
 import Navbar from './Navbar';
-import Home from './Home'
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Create from './Create';
 
 // eslint-disable-next-line no-lone-blocks
 {/* curly braces allow react to use dynamic values */}
@@ -14,12 +16,21 @@ function App() {
 
 
   return (
-    <div className="App">
-      <Navbar />
-      <div className="content">
-      <Home />
-       </div>
-     </div>
+    <Router>
+      <div className="App">
+          <Navbar />
+          <div className="content">
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/create">
+                <Create />
+              </Route>
+            </Switch>
+          </div>
+      </div>
+     </Router>
 
 
 
