@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 
 // url is the fetch url endpoint. passing it into the useFetch hook so we can reuse it
 const useFetch = (url) => {
+
+    /// *************** STATES *************************************
+
     // create a state for blogs and a function state to update
     const [data, setData] = useState(null)
     // create a state for loading and a function state to update
@@ -10,11 +13,21 @@ const useFetch = (url) => {
     // create a state for errors and function state to update 
         const [error, setError] = useState(null)
 
-    useEffect(() => {
+        
+        
+        useEffect(() => {
+            
+        //  ***** Clean Up Function ********
+
+        const abortCont = new AbortController()
+
+
         // useSetTimeOut to create a realistic 1 second time delay
         setTimeout(() =>{
-                         // fetch data from json fake db
-        fetch(url)
+        // fetch data from json fake db
+
+        // assosiating abort controller with the fetch ** 
+        fetch(url, { signal: abortCont.signal })
                 // .then because it's a promise 
             .then(res =>{
                 // check if res status is !NOT OK 
@@ -34,13 +47,23 @@ const useFetch = (url) => {
                     setError(null)
                 })
             .catch((err) =>{
-                // if error STOP LOADING
-                setIsLoading(false)
-                // show loading message
-                setError(err.message)
+                // if abort ERROR caused by us, don't update state
+                if(err.name === "AbortError"){
+                    console.log("fetch aborted")
+                } else {
+                    // if error STOP LOADING
+                    setIsLoading(false)
+                    // show loading message
+                    setError(err.message)
+
+                }
             })
                 // here we pass in the time wanted before executing the code
         }, 1000)
+
+        // clean up function / abort controller 
+        return () => {abortCont.abort()}
+
     }, [url])
 
     return {data, isLoading, error}

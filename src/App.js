@@ -20,8 +20,13 @@ function App() {
       <div className="App">
           <Navbar />
           <div className="content">
+            {/* Below we use "Switch" to control one Route at a time */}
             <Switch>
+              {/* Below we use "Route" with the Route atrribute "PATH" to provide the path (url). We use the atrribute
+                  "exact"* because switch matches the first path that has a similar name */}
               <Route exact path="/">
+                {/* Below we provide the component we want to display in the particular Route 
+                    In this case it's <Home />  */}
                 <Home />
               </Route>
               <Route path="/create">
