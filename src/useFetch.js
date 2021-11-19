@@ -18,7 +18,8 @@ const useFetch = (url) => {
         useEffect(() => {
             
         //  ***** Clean Up Function ********
-
+            // Below, we use the abortcontroller instance to cancel any unwanted requests
+            //  (if a person skips between pages we want to cancel request)
         const abortCont = new AbortController()
 
 
