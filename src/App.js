@@ -4,7 +4,7 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Create from './Create';
 import BlogDetails from './BlogDetails';
-
+import NotFound from './NotFound'
 // eslint-disable-next-line no-lone-blocks
 {/* curly braces allow react to use dynamic values */}
 
@@ -36,6 +36,11 @@ function App() {
 
               <Route path="/blogs/:id">
                 <BlogDetails/> 
+              </Route>
+                        {/* This "*" catches all routes that don't match the above
+                            Always keep this at the bottom of all routes */}
+              <Route path="*">
+                <NotFound />
               </Route>
             </Switch>
           </div>
